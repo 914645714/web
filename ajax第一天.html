@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./js/jquery.min.js"></script>
+</head>
+
+<body>
+    <input type="text" class="ipt">
+    <button type="submit" class="btn">提交</button>
+</body>
+<script>
+    //点击发送
+    $('.btn').on('click', function() {
+        var text = $('.ipt').val();
+        console.log(text);
+        $('.ipt').val('');
+    });
+
+    //回车发送
+    $('.ipt').on('keyup', function(e) {
+        // console.log(e.keyCode);
+        if (e.keyCode == 13) {
+            $('.btn').click();
+        }
+    });
+
+    //将用户数据渲染到数据窗口
+    $('.btn').on('click', function() {
+        var text = $('ipt').val().trim();
+        if (text.length <= 0) {
+            return $('ipt').val('');
+        }
+        $('text_list').append('<>');
+        resetui();
+        $('ipt').val('');
+    })
+
+    //1.创建XHR对象
+    var xhr = new XMLHttpRequest()
+        //2.调用open函数
+    xhr.open('GET', 'http://www.liulongbin.top:3006/api/getbooks')
+        // 3.调用send函数
+    xhr.send()
+        //4.监听onreadeystatechange事件
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            //获取服务器响应的数据
+            console.log(xhr.responseText)
+        }
+    }
+</script>
+
+</html>

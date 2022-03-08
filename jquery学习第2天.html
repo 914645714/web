@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./js/jquery.min.js"></script>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    /* .box {
+        position: relative;
+        width: 200px;
+        height: 200px;
+        background-color: aquamarine;
+    }
+    
+    .small_box {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        height: 50px;
+        width: 50px;
+        transform: translate(-50%, -50%);
+        background-color: blanchedalmond;
+    } */
+    
+    .back {
+        position: fixed;
+        width: 50px;
+        height: 80px;
+        background-color: burlywood;
+        right: 100px;
+        bottom: 50px;
+        display: none;
+        cursor: pointer;
+    }
+    
+    .container {
+        width: 900px;
+        height: 2000px;
+        background-color: aquamarine;
+        margin: 100px auto;
+    }
+</style>
+
+<body>
+    <div class="box">
+        <div class="small_box"></div>
+    </div>
+    <div class="container"></div>
+    <div class="back"></div>
+</body>
+<script>
+    //微博发布案例
+    $(function() {
+        $(".btn").on("click", "li", function() {
+                // 1.添加li标签 获得一个输入的val+一个删除按钮
+                var li = $('<li><li>');
+                li.html($('.txt').val() + "<a href='javascript:;'>删除<a>");
+                // 2.在ul前面添加li内容
+                $('ul').prepend(li);
+                // 3.li上滑,textarea内容为空
+                li.slideDown();
+                $('.txt').val('');
+            })
+            //删除元素:先上滑再删除
+        $('ul').on("click", "a", function() {
+            $(this).parent().slideup(function() {
+                $(this).remove();
+            })
+        })
+    })
+    $(function() {
+            var boxTop = $('.container').offset().top;
+            //页面滚动事件
+            screenScroll();
+
+            function screenScroll() {
+                if (boxTop <= $(document).scrollTop()) {
+                    $('.back').fadeIn();
+                } else {
+                    $('.back').fadeOut();
+                }
+            }
+            $(window).scroll(function() {
+                screenScroll();
+            });
+            $('.back').click(function() {
+                $('body,html').stop().animate({
+                    scrollTop: 0
+                })
+            })
+        })
+        //事件处理on
+    $('.back').on({
+        mouseenter: function() {
+            $(this).css('background-color', 'pink');
+        },
+        click: function() {
+            $(this).css('background-color', 'skyblue');
+        }
+    })
+    $(function() {
+        $('.checkall').change(function() {
+            $('.j-checkbox,.checkall').prop('checked', $(this).prop('checked'));
+        })
+        $('.j-checkbox').change(function() {
+            if ($('.j-checkbox:checked').length == $('.j-checkbox li').length) {
+                $('checkall').prop('checked', true);
+            } else {
+                $('checkall').prop('checked', false);
+            }
+        })
+    })
+</script>
+
+</html>

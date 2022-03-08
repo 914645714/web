@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<header>
+    <style>
+
+    </style>
+</header>
+
+<body>
+    <div class="box" :value='data.name'>
+        {{name}}
+    </div>
+    <script>
+        vue.config.Vue.config.productionTip = false //阻止vue在启动时生成生产提示
+        const v = new vue({
+            el: '.box',
+            data: {
+                name: '尚硅谷'
+            }
+        })
+    </script>
+</body>
+
+</html>
